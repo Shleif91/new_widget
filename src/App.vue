@@ -14,35 +14,7 @@
                         <v-stepper-content step="1">
                             <v-card :color="color" class="mb-5">
                                 <v-container>
-                                    <form>
-                                        <v-text-field
-                                            label="Name"
-                                            v-model="name"
-                                            :error-messages="nameErrors"
-                                            :counter="10"
-                                            @input="$v.name.$touch()"
-                                            @blur="$v.name.$touch()"
-                                            required
-                                        ></v-text-field>
-                                        <v-text-field
-                                            label="E-mail"
-                                            v-model="email"
-                                            :error-messages="emailErrors"
-                                            @input="$v.email.$touch()"
-                                            @blur="$v.email.$touch()"
-                                            required
-                                        ></v-text-field>
-                                        <v-checkbox
-                                            label="Do you agree?"
-                                            v-model="checkbox"
-                                            :error-messages="checkboxErrors"
-                                            @change="$v.checkbox.$touch()"
-                                            @blur="$v.checkbox.$touch()"
-                                            required
-                                        ></v-checkbox>
-
-                                        <!--<v-btn @click="submit">submit</v-btn>-->
-                                    </form>
+                                    <first-form v-on:nextStep="nextStep"></first-form>
                                 </v-container>
                             </v-card>
                             <v-btn color="primary" @click="submit">Continue</v-btn>
@@ -67,63 +39,25 @@
 
 <script>
     import colors from 'vuetify/es5/util/colors'
-    import { validationMixin } from 'vuelidate'
-    import { required, maxLength, email } from 'vuelidate/lib/validators'
 
     export default {
-        mixins: [validationMixin],
-
-        validations: {
-            name: { required, maxLength: maxLength(10) },
-            email: { required, email },
-            checkbox: { required }
-        },
-
         data() {
             return {
                 e1: 1,
                 color: 'blue lighten-1',
-                name: '',
-                email: '',
-                checkbox: false
             }
         },
         mounted: function () {
             this.$vuetify.theme.primary = colors.blue.lighten1;
             this.$vuetify.theme.secondary = colors.blue.lighten3;
         },
-        computed: {
-            checkboxErrors () {
-                const errors = [];
-                if (!this.$v.checkbox.$dirty) return errors;
-                !this.$v.checkbox.required && errors.push('You must agree to continue!');
-
-                return errors;
-            },
-            nameErrors () {
-                const errors = [];
-                if (!this.$v.name.$dirty) return errors;
-                !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long');
-                !this.$v.name.required && errors.push('Name is required.');
-
-                return errors;
-            },
-            emailErrors () {
-                const errors = [];
-                if (!this.$v.email.$dirty) return errors;
-                !this.$v.email.email && errors.push('Must be valid e-mail');
-                !this.$v.email.required && errors.push('E-mail is required');
-
-                return errors;
-            }
-        },
         methods: {
-            submit () {
-                this.$v.$touch();
-                if (!this.$v.$invalid) {
-                    this.e1 = 2;
-                }
+            submit() {
+                this.$root.$emit('submit', 'firstForm');
             },
+            nextStep(stepId) {
+                this.e1 = stepId;
+            }
         }
     }
 </script>
