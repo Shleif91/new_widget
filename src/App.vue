@@ -2,7 +2,7 @@
     <v-app id="stepper">
         <v-content>
             <v-container>
-                <v-stepper v-model="e1" dark>
+                <v-stepper v-model="e1" :dark="dark">
                     <v-stepper-header>
                         <v-stepper-step step="1" :complete="e1 > 1">Name of step 1</v-stepper-step>
                         <v-divider></v-divider>
@@ -21,7 +21,11 @@
                             <v-btn flat>Cancel</v-btn>
                         </v-stepper-content>
                         <v-stepper-content step="2">
-                            <v-card :color="color" class="mb-5" height="200px"></v-card>
+                            <v-card :color="color" class="mb-5">
+                                <v-container>
+                                    <second-form :color="avatarColor"></second-form>
+                                </v-container>
+                            </v-card>
                             <v-btn color="primary" @click.native="e1 = 3">Continue</v-btn>
                             <v-btn flat>Cancel</v-btn>
                         </v-stepper-content>
@@ -43,8 +47,10 @@
     export default {
         data() {
             return {
-                e1: 1,
-                color: 'blue lighten-1',
+                e1: 2,
+                color: null,
+                avatarColor: 'green',
+                dark: true
             }
         },
         mounted: function () {
