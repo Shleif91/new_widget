@@ -64,7 +64,7 @@
                     </v-avatar>
                 </network>
                 <network network="whatsapp">
-                    <v-avatar size="80" color="blue lighten-1">
+                    <v-avatar size="80" :color="$root.avatarColor">
                         <i class="fa fa-whatsapp fa-2x"></i>
                     </v-avatar>
                 </network>

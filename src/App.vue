@@ -49,7 +49,6 @@
             return {
                 e1: 2,
                 color: null,
-                avatarColor: 'green',
                 dark: true
             }
         },

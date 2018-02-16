@@ -14,5 +14,8 @@ Vue.component('second-form', SecondForm);
 
 new Vue({
     el: '#app',
+    data: {
+        avatarColor: 'green'
+    },
     render: h => h(App)
 });
