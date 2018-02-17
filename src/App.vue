@@ -2,7 +2,7 @@
     <v-app id="stepper">
         <v-content>
             <v-container>
-                <v-stepper v-model="e1" :dark="dark">
+                <v-stepper v-model="e1" :dark="$root.dark">
                     <v-stepper-header>
                         <v-stepper-step step="1" :complete="e1 > 1">Name of step 1</v-stepper-step>
                         <v-divider></v-divider>
@@ -12,7 +12,7 @@
                     </v-stepper-header>
                     <v-stepper-items>
                         <v-stepper-content step="1">
-                            <v-card :color="color" class="mb-5">
+                            <v-card :color="$root.bgColor" class="mb-5">
                                 <v-container>
                                     <first-form v-on:nextStep="nextStep"></first-form>
                                 </v-container>
@@ -21,16 +21,16 @@
                             <v-btn flat>Cancel</v-btn>
                         </v-stepper-content>
                         <v-stepper-content step="2">
-                            <v-card :color="color" class="mb-5">
+                            <v-card :color="$root.bgColor" class="mb-5">
                                 <v-container>
-                                    <second-form :color="avatarColor"></second-form>
+                                    <second-form></second-form>
                                 </v-container>
                             </v-card>
                             <v-btn color="primary" @click.native="e1 = 3">Continue</v-btn>
                             <v-btn flat>Cancel</v-btn>
                         </v-stepper-content>
                         <v-stepper-content step="3">
-                            <v-card :color="color" class="mb-5" height="200px"></v-card>
+                            <v-card :color="$root.bgColor" class="mb-5" height="200px"></v-card>
                             <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
                             <v-btn flat>Cancel</v-btn>
                         </v-stepper-content>
@@ -42,19 +42,11 @@
 </template>
 
 <script>
-    import colors from 'vuetify/es5/util/colors'
-
     export default {
         data() {
             return {
-                e1: 2,
-                color: null,
-                dark: true
+                e1: 1
             }
-        },
-        mounted: function () {
-            this.$vuetify.theme.primary = colors.blue.lighten1;
-            this.$vuetify.theme.secondary = colors.blue.lighten3;
         },
         methods: {
             submit() {
